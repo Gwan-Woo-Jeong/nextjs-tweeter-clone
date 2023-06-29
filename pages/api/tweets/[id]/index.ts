@@ -1,3 +1,25 @@
-async function handler() {}
+import { NextApiRequest, NextApiResponse } from "next";
+import { withApiSession } from "lib/server/withSession";
+import withHandler from "lib/server/withHandler";
+import db from "lib/db";
 
-export default handler;
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query;
+
+  const tweet = await db.tweet.findFirst({
+    where: {
+      id: +id.toString(),
+    },
+  });
+
+  if (!tweet) return res.status(404).json({ ok: false, message: "Not found" });
+
+  return res.status(200).json({
+    ok: true,
+    tweet,
+  });
+}
+
+export default withApiSession(
+  withHandler({ methods: ["GET"], handler, isPrivate: true })
+);

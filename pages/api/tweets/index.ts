@@ -25,6 +25,26 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       tweet,
     });
   } else if (req.method === "GET") {
+    const tweets = await db.tweet.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            like: true,
+          },
+        },
+      },
+    });
+
+    return res.status(201).json({
+      ok: true,
+      tweets,
+    });
   }
 }
 
