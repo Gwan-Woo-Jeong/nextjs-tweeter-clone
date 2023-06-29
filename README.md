@@ -3,8 +3,8 @@
 ## To Do
 
 - [x] Page / API Routes
-- [ ] DataBase Setup
-- [ ] Create Account API (POST)
+- [x] DataBase Setup
+- [x] Create Account API (POST)
 - [ ] Log In API (POST)
 - [ ] Tweet API (POST)
 - [ ] Like API (POST)
