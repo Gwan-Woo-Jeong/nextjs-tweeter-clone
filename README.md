@@ -11,6 +11,6 @@
 - [x] Tweets API (GET)
 - [x] Tweet API (GET)
 - [x] Log In Page (/log-in)
-- [ ] Create Account (/create-account)
+- [x] Create Account (/create-account)
 - [ ] Home Page (/)
 - [ ] Tweet Page (/tweet/[id])
