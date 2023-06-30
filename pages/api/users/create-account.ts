@@ -1,26 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler from "lib/server/withHandler";
 import db from "lib/db";
+import bcrypt from "bcrypt";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { phone, email, name } = req.body;
+  const { uuid, name, password } = req.body;
 
-  if (!phone && !email) return res.status(400).json({ ok: false });
+  if (!uuid && !name && !password) return res.status(400).json({ ok: false });
 
   const existingUser = await db.user.findFirst({
-    where: {
-      ...{ ...(phone && { phone }) },
-      ...{ ...(email && { email }) },
-    },
+    where: { uuid },
   });
 
   if (existingUser)
     return res.status(409).json({ ok: false, message: "User already exists" });
 
+  const hashed = await bcrypt.hash(password, 10);
+
   await db.user.create({
     data: {
-      ...{ ...(phone && { phone }) },
-      ...{ ...(email && { email }) },
+      uuid,
+      password: hashed,
       name,
     },
   });
