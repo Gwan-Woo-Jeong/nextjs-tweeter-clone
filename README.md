@@ -10,7 +10,7 @@
 - [x] Like API (POST)
 - [x] Tweets API (GET)
 - [x] Tweet API (GET)
-- [ ] Log In Page (/log-in)
+- [x] Log In Page (/log-in)
 - [ ] Create Account (/create-account)
 - [ ] Home Page (/)
 - [ ] Tweet Page (/tweet/[id])
