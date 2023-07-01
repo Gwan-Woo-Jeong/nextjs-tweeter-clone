@@ -1,6 +1,7 @@
 import useMutation from "lib/client/useMutation";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface loginForm {
@@ -31,13 +32,16 @@ export default function LogIn() {
   const onValid = (form: loginForm) => {
     if (loading) return;
     login(form);
-    if (data?.ok === false) return alert(data.message);
-    if (data?.ok === true) router.replace("/");
   };
 
   const goToCreateAccount = () => {
     router.push("/create-account");
   };
+
+  useEffect(() => {
+    if (data && data?.ok === false) return alert(data.message);
+    if (data && data?.ok === true) router.replace("/");
+  }, [data, router]);
 
   return (
     <>
