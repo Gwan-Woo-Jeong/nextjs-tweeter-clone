@@ -11,32 +11,45 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  uuid      String   @unique
+  id        Int       @id @default(autoincrement())
+  uuid      String    @unique
   name      String
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   tweet     Tweet[]
   like      Like[]
+  comment   Comment[]
 }
 
 model Tweet {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  like      Like[]
+  comment   Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // user에게 속하면서
+  userId    Int
+  comment   String
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  like      Like[]
 }
 
 model Like {
   id        Int      @id @default(autoincrement())
-  userId    Int
-  tweetId   Int
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
   tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

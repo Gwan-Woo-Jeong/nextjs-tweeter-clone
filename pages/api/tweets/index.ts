@@ -33,9 +33,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             name: true,
           },
         },
+        like: {
+          select: {
+            userId: true,
+          },
+        },
         _count: {
           select: {
             like: true,
+            comment: true,
           },
         },
       },
