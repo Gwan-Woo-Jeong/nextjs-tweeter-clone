@@ -1,3 +1,4 @@
+import Header from "@components/header";
 import useMutation from "lib/client/useMutation";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -53,6 +54,7 @@ export default function CreateAccount() {
 
   return (
     <>
+      <Header onClick={goBack} text="Log In" />
       <div className="text-center pt-10 pb-8">
         <Image
           loader={() => twitterLogoSrc}
@@ -88,18 +90,12 @@ export default function CreateAccount() {
         <text className="text-red-500 text-sm">
           {errors.password?.message && errors.password.message}
         </text>
-        <div className="pt-4 pb-8 space-y-4">
+        <div className="pt-4 pb-8">
           <input
             className="block mx-auto bg-blue-400 text-white py-1 px-3 rounded-lg cursor-pointer"
             value="Create Account"
             type="submit"
           />
-          <button
-            className="block mx-auto bg-white text-blue-400 py-1 px-2 rounded-lg"
-            onClick={goBack}
-          >
-            Go Back
-          </button>
         </div>
       </form>
     </>
