@@ -15,11 +15,11 @@ interface TweetForm {
 
 export interface TweetWithCounts extends Tweet {
   user: User;
-  _count: {
+  _count?: {
     like: number;
     comment: number;
   };
-  like: Like[];
+  like?: Like[];
 }
 
 export interface TweetsResponse {
@@ -74,7 +74,7 @@ export default function Home() {
         <TextArea
           onSubmit={handleSubmit(onValid)}
           register={register("content", { required: true })}
-          disabled={watchContent === ""}
+          disabled={!watchContent}
           placeholder="What's happening?"
         />
       </div>
@@ -83,7 +83,7 @@ export default function Home() {
           <TweetItem
             {...tweet}
             mutate={mutate}
-            isLiked={tweet.like.some((e) => e.userId === user?.id)}
+            isLiked={tweet.like?.some((e) => e.userId === user?.id)}
           />
         ))}
       </div>

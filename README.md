@@ -13,4 +13,4 @@
 - [x] Log In Page (/log-in)
 - [x] Create Account (/create-account)
 - [x] Home Page (/)
-- [ ] Tweet Page (/tweet/[id])
+- [x] Tweet Page (/tweet/[id])
