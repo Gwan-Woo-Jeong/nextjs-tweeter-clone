@@ -1,10 +1,11 @@
 import useMutation from "lib/client/useMutation";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface createAccountForm {
-  id: string;
+  uuid: string;
   password: string;
   name: string;
 }
@@ -33,16 +34,22 @@ export default function CreateAccount() {
   const onValid = (form: createAccountForm) => {
     if (loading) return;
     createAccount(form);
-    if (data?.ok === false) return alert(data.message);
-    if (data?.ok === true) {
-      alert("Account Created!\nPlease Log In!");
-      router.replace("/log-in");
-    }
   };
 
   const goBack = () => {
     router.replace("/log-in");
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data.ok) {
+        alert("Account Created!\nPlease Log In!");
+        router.replace("/log-in");
+      } else {
+        alert(data.message);
+      }
+    }
+  }, [data]);
 
   return (
     <>
@@ -57,12 +64,12 @@ export default function CreateAccount() {
       </div>
       <form className="space-y-4 px-24" onSubmit={handleSubmit(onValid)}>
         <input
-          {...register("id", { required: "Please enter your ID" })}
+          {...register("uuid", { required: "Please enter your ID" })}
           className="border-b-2 w-full block px-1"
           placeholder="Email or Phone Number"
         />
         <text className="text-red-500 text-sm">
-          {errors.id?.message && errors.id.message}
+          {errors.uuid?.message && errors.uuid.message}
         </text>
         <input
           {...register("password", { required: "Please enter your password" })}
