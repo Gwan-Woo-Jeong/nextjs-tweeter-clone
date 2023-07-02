@@ -22,6 +22,9 @@ export default function App({ Component, pageProps }: any) {
           input:focus {
             outline: none;
           }
+          * {
+            color: #2e2e2e;
+          }
         `}
       </style>
     </>
