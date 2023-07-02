@@ -14,7 +14,6 @@ export default function useUser() {
 
   useEffect(() => {
     if (data && !data?.ok) {
-      alert("Please log in");
       router.push("/log-in");
     }
   }, [data, router]);
